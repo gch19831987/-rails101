@@ -16,7 +16,8 @@ class GroupsController < ApplicationController
 
  def update
    @group = Group.find(params[:id])
-   @group.updatae(group_params)
+
+   @group.update(group_params)
 
    redirect_to group_path, notice: "Update Success"
 
@@ -24,9 +25,11 @@ class GroupsController < ApplicationController
 
 def create
   @group = Group.new(group_params)
-   @group.save
-
+  if @group.save
     redirect_to groups_path
+  else
+    render :new
+  end
  end
 
  private
